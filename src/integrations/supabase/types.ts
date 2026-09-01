@@ -14,7 +14,162 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      admin_sessions: {
+        Row: {
+          created_at: string
+          expires_at: string
+          id: string
+          token_hash: string
+        }
+        Insert: {
+          created_at?: string
+          expires_at: string
+          id?: string
+          token_hash: string
+        }
+        Update: {
+          created_at?: string
+          expires_at?: string
+          id?: string
+          token_hash?: string
+        }
+        Relationships: []
+      }
+      audit_log: {
+        Row: {
+          action: string
+          created_at: string
+          details: string | null
+          employee_id: string | null
+          id: string
+        }
+        Insert: {
+          action: string
+          created_at?: string
+          details?: string | null
+          employee_id?: string | null
+          id?: string
+        }
+        Update: {
+          action?: string
+          created_at?: string
+          details?: string | null
+          employee_id?: string | null
+          id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "audit_log_employee_id_fkey"
+            columns: ["employee_id"]
+            isOneToOne: false
+            referencedRelation: "employees"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      employees: {
+        Row: {
+          active: boolean
+          created_at: string
+          id: string
+          name: string
+          role: string
+        }
+        Insert: {
+          active?: boolean
+          created_at?: string
+          id?: string
+          name: string
+          role: string
+        }
+        Update: {
+          active?: boolean
+          created_at?: string
+          id?: string
+          name?: string
+          role?: string
+        }
+        Relationships: []
+      }
+      merit_points: {
+        Row: {
+          created_at: string
+          employee_id: string
+          id: string
+          points: number
+          reason: string
+        }
+        Insert: {
+          created_at?: string
+          employee_id: string
+          id?: string
+          points: number
+          reason: string
+        }
+        Update: {
+          created_at?: string
+          employee_id?: string
+          id?: string
+          points?: number
+          reason?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "merit_points_employee_id_fkey"
+            columns: ["employee_id"]
+            isOneToOne: false
+            referencedRelation: "employees"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      weekly_reviews: {
+        Row: {
+          created_at: string
+          discipline: number
+          employee_id: string
+          engagement: number
+          id: string
+          note: string | null
+          productivity: number
+          quality: number
+          teamwork: number
+          week_start: string
+        }
+        Insert: {
+          created_at?: string
+          discipline: number
+          employee_id: string
+          engagement: number
+          id?: string
+          note?: string | null
+          productivity: number
+          quality: number
+          teamwork: number
+          week_start: string
+        }
+        Update: {
+          created_at?: string
+          discipline?: number
+          employee_id?: string
+          engagement?: number
+          id?: string
+          note?: string | null
+          productivity?: number
+          quality?: number
+          teamwork?: number
+          week_start?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "weekly_reviews_employee_id_fkey"
+            columns: ["employee_id"]
+            isOneToOne: false
+            referencedRelation: "employees"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never

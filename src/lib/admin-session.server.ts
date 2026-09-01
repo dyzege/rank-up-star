@@ -26,10 +26,6 @@ export function timingSafeEqualStr(a: string, b: string): boolean {
   return diff === 0;
 }
 
-type AdminClient = Awaited<
-  ReturnType<typeof import("@/integrations/supabase/client.server").then>
->;
-
 export async function getAdminDb() {
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
   return supabaseAdmin;
@@ -97,5 +93,3 @@ export async function logAudit(
   const db = await getAdminDb();
   await db.from("audit_log").insert({ action, employee_id: employeeId, details });
 }
-
-export type { AdminClient };
